@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=m, initial-scale=1.0" />
+    <title>Pond Quality</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/526168ba5c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container mt-3">
+      <table class="table table-dark">
+        <thead>
+          <th>pH</th>
+          <th>Oxygen</th>
+          <th>TDS</th>
+          <th>Temperature</th>
+        </thead>
+        <tbody id="tbody1"></tbody>
+      </table>
+    </div>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyDG2ic0Q_VY2l7F2Y2QN6eU7oc6mm3FxTk",
+        authDomain: "pond-quality.firebaseapp.com",
+        databaseURL: "https://pond-quality-default-rtdb.firebaseio.com",
+        projectId: "pond-quality",
+        storageBucket: "pond-quality.appspot.com",
+        messagingSenderId: "148715308956",
+        appId: "1:148715308956:web:8f5724962ecbb4167d6a59",
+        measurementId: "G-9WDL5F6EZQ",
+      };
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      import {
+        getDatabase,
+        ref,
+        child,
+        onValue,
+        get,
+      } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+      const db = getDatabase();
+    </script>
+    <script>
+      var stdNo = 0;
+      var tbody = document.getElementById("tbody1");
+
+      function AddItemTable(pH, Oxygen, TDS, Temperature) {
+        let trow = document.createElement("tr");
+        let td1 = document.createElement("td");
+        let td2 = document.createElement("td");
+        let td3 = document.createElement("td");
+        let td4 = document.createElement("td");
+
+        td1.innerHTML = ++stdNo;
+        td1.innerHTML = pH;
+        td1.innerHTML = Oxygen;
+        td1.innerHTML = TDS;
+        td1.innerHTML = Temperature;
+
+        trow.appendChild(td1);
+        trow.appendChild(td2);
+        trow.appendChild(td3);
+        trow.appendChild(td4);
+        trow.appendChild(td5);
+
+        tbody.appendChild(trow);
+      }
+      function AddAllItemsToTable(quality) {
+        stdN0 = 0;
+        tbody.innerHTML = "";
+        quality.forEach((element) => {
+          AddItemToTable(
+            element.pH,
+            element.Oxygen,
+            element.TDS,
+            element.Temperature
+          );
+        });
+      }
+
+      function GetAllDataOnce() {
+        const dbRef = ref(db);
+        get(child(dbref, "quality")).then((snapshot) => {
+          var quality = [];
+          snapshot.forEach((childSnapshot) => {
+            quality.push(childSnapshot.val());
+          });
+          AddAllItemsToTable(quality);
+        });
+      }
+      window.onload = GetAllDataOnce;
+    </script>
+    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    <div id="services">
+      <div class="container">
+        <h1 class="sub-title">pond data</h1>
+        <div class="services-list">
+          <div>
+            <i class="fa-brands fa-app-store-ios"></i>
+            <h2>Ph</h2>
+            <p>.............</p>
+          </div>
+          <div>
+            <i class="fa-solid fa-users"></i>
+            <h2>oygen level</h2>
+            <p>...............</p>
+          </div>
+          <div>
+            <i class="fa-solid fa-chart-line"></i>
+            <h2>Temperature</h2>
+            <p>.............</p>
+          </div>
+          <div>
+            <i class="fa-solid fa-chart-line"></i>
+            <h2>TDS</h2>
+            <p>.............</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-------------------------------- images-------------------------------------------------- -->
+
+    <div class="message">
+      <p>Alert Message :</p>
+    </div>
+  </body>
+</html>
